@@ -1,0 +1,70 @@
+{
+    "manifestVersion": 1,
+    "id": "ado-markdown-mermaid",
+    "version": "1.0.0",
+    "name": "ADO Markdown Mermaid",
+    "description": "A Mermaid Renderer for Azure DevOps",
+    "public": true,
+    "publisher": "javiramos1",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "scopes": [
+        "vso.code"
+    ],
+    "categories": [
+        "Azure Repos"
+    ],
+    "tags": [
+        "mermaid",
+        "diagrams",
+        "render",
+        "markdown",
+        "preview"
+    ],
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/javiramos1/ado-markdown-mermaid"
+    },
+    "icons": {
+        "default": "marketplace/logo.png"
+    },
+    "contributions": [
+        {
+            "id": "mermaid-renderer",
+            "type": "ms.vss-code-web.content-renderer",
+            "description": "Shows a mermaid renderer for .mmd files",
+            "targets": [
+                "ms.vss-code-web.content-renderer-collection"
+            ],
+            "properties": {
+                "uri": "dist/index.html",
+                "fileExtensions": [
+                    "md"
+                ],
+                "mimeTypes": [
+                    "text/html"
+                ],
+                "defaultBehavior": "showRenderedContent",
+                "registeredObjectId": "mermaid_renderer"
+            }
+        }
+    ],
+    "content": {
+        "details": {
+            "path": "marketplace/overview.md"
+        }
+    },
+    "files": [
+        {
+            "path": "dist",
+            "addressable": true
+        },
+        {
+            "path": "marketplace",
+            "addressable": true
+        }
+    ]
+}

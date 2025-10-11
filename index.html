@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started</title>
+    <style>
+      body {
+        font-family: "Segoe UI VSS (Regular)","Segoe UI","-apple-system",BlinkMacSystemFont,Roboto,"Helvetica Neue",Helvetica,Ubuntu,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        color: rgba(0,0,0,1);
+        color: rgba(var(--palette-neutral-100,0, 0, 0),1);
+        font-size: 14px;
+        line-height: 1.6;
+        background-color: rgba(255,255,255,1);
+        background-color: var(--background-color,rgba(255, 255, 255, 1));
+        overflow: hidden;
+        margin: 0;
+        padding: 0
+      }
+      #md-mermaid-viewer {
+        padding: 20px;
+        max-width: 1200px;
+      }
+      
+      /* Table Styles */
+      #md-mermaid-viewer table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 16px 0;
+        display: table;
+      }
+      
+      #md-mermaid-viewer table th,
+      #md-mermaid-viewer table td {
+        border: 1px solid #d0d7de;
+        padding: 8px 13px;
+        text-align: left;
+      }
+      
+      #md-mermaid-viewer table th {
+        background-color: #f6f8fa;
+        font-weight: 600;
+      }
+      
+      #md-mermaid-viewer table tr:nth-child(even) {
+        background-color: #f6f8fa;
+      }
+      
+      #md-mermaid-viewer table tr:hover {
+        background-color: #f0f0f0;
+      }
+      
+      /* Code Blocks */
+      #md-mermaid-viewer pre {
+        background-color: #f6f8fa;
+        border-radius: 6px;
+        padding: 16px;
+        overflow: auto;
+        margin: 16px 0;
+      }
+      
+      #md-mermaid-viewer code {
+        background-color: #f6f8fa;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 85%;
+      }
+      
+      #md-mermaid-viewer pre code {
+        background-color: transparent;
+        padding: 0;
+      }
+      
+      /* Blockquotes */
+      #md-mermaid-viewer blockquote {
+        border-left: 4px solid #d0d7de;
+        padding-left: 16px;
+        margin-left: 0;
+        color: #57606a;
+      }
+      
+      /* Horizontal Rules */
+      #md-mermaid-viewer hr {
+        border: none;
+        border-top: 1px solid #d0d7de;
+        margin: 24px 0;
+      }
+      
+      /* Lists */
+      #md-mermaid-viewer ul,
+      #md-mermaid-viewer ol {
+        padding-left: 32px;
+        margin: 16px 0;
+      }
+      
+      #md-mermaid-viewer li {
+        margin: 4px 0;
+      }
+      
+      /* Links */
+      #md-mermaid-viewer a {
+        color: #0969da;
+        text-decoration: none;
+      }
+      
+      #md-mermaid-viewer a:hover {
+        text-decoration: underline;
+      }
+      
+      /* Headers */
+      #md-mermaid-viewer h1,
+      #md-mermaid-viewer h2,
+      #md-mermaid-viewer h3,
+      #md-mermaid-viewer h4 {
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        line-height: 1.25;
+      }
+      
+      #md-mermaid-viewer h1 {
+        font-size: 2em;
+        border-bottom: 1px solid #d0d7de;
+        padding-bottom: 8px;
+      }
+      
+      #md-mermaid-viewer h2 {
+        font-size: 1.5em;
+        border-bottom: 1px solid #d0d7de;
+        padding-bottom: 8px;
+      }
+      
+      #md-mermaid-viewer h3 {
+        font-size: 1.25em;
+      }
+    </style>
+  </head>
+  <body style="overflow-y: scroll;overflow-x: scroll;">
+    <div id="md-mermaid-viewer">
+    </div>
+  </body>
+</html>
