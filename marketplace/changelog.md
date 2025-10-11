@@ -5,6 +5,14 @@ All notable changes to the ADO Markdown Mermaid extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2024-10-11
+
+### Fixed
+- 🔧 **Context Menu Restored**: Removed incorrect file extension constraints that were preventing the context menu from appearing
+- 🧹 **Code Cleanup**: Fixed duplicate variable declarations in context action handler
+- 🎯 **Simplified Navigation**: Streamlined context menu action to use direct URL navigation approach
+- ⚡ **Better Error Handling**: Improved error messages with helpful guidance for users
+
 ## [1.0.8] - 2024-10-11
 
 ### Fixed
