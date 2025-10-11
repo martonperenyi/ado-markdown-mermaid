@@ -4,7 +4,18 @@ Transform your Azure DevOps documentation with beautiful, interactive diagrams! 
 
 ## ✨ What does this extension do?
 
-This extension automatically renders **Mermaid diagrams** embedded in your markdown files, making your documentation more visual and easier to understand. No more static images or external tools - create diagrams with simple text syntax!
+This extension brings **Mermaid diagram rendering** to your Azure DevOps markdown files! Due to Azure DevOps' built-in markdown renderer, we provide multiple ways to view your content with Mermaid support.
+
+## 🎯 Multiple Ways to Use
+
+### 📁 **For .mmd files**: Automatic rendering
+- Files with `.mmd` extension render automatically with full Mermaid support
+- Simply rename your markdown files from `.md` to `.mmd` for instant diagram rendering
+
+### 📝 **For .md files**: Hub & Context Menu
+- **Context Menu**: Right-click any `.md` file → "Open with Mermaid"
+- **Dedicated Hub**: Visit the "Mermaid Viewer" tab in the Code section
+- **Paste & Preview**: Copy/paste markdown content directly into the hub
 
 ## 🚀 Key Features
 
@@ -53,7 +64,26 @@ flowchart TD
 ```
 ````
 
-The extension will automatically render these as interactive diagrams when you view the file in Azure Repos!
+The extension will automatically render these as interactive diagrams!
+
+## 📖 How to Use
+
+### Method 1: .mmd Files (Automatic)
+1. Rename your markdown file from `.md` to `.mmd`
+2. Add Mermaid diagrams using code blocks with `mermaid` language
+3. View the file in Azure Repos - diagrams render automatically!
+
+### Method 2: Context Menu (For .md files)
+1. Right-click any `.md` file in Azure Repos
+2. Select "Open with Mermaid" from the context menu
+3. View your markdown with full Mermaid support
+
+### Method 3: Mermaid Viewer Hub
+1. Navigate to **Code** → **Mermaid Viewer** tab
+2. Either:
+   - Enter a repository file path and click "Load from Repository"
+   - Paste markdown content directly into the text area
+3. Click "Render Preview" to see the result
 
 ## 🎨 Example Diagrams
 

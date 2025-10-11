@@ -5,6 +5,27 @@ All notable changes to the ADO Markdown Mermaid extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 2024-10-11
+
+### Added
+- 🚀 **Alternative Solution**: Added multiple ways to view markdown with Mermaid diagrams
+- 📍 **Context Menu Action**: Right-click on `.md` files to "Open with Mermaid"
+- 🎯 **Dedicated Hub**: New "Mermaid Viewer" hub in the Code section for direct markdown viewing
+- 📝 **Paste & Preview**: Hub allows pasting markdown content or loading from repository
+- 📂 **File Path Loading**: Support for loading files directly via repository path
+- 🔗 **URL Parameters**: Hub can auto-load files when called with `?filePath=` parameter
+- 📋 **Sample Content**: Built-in sample markdown with various Mermaid diagram types
+
+### Changed
+- 🔧 **Simplified .md Support**: Removed complex override attempts, focused on .mmd files for direct rendering
+- 🎨 **Enhanced UI**: Modern, responsive design for the hub interface
+- 📦 **Multi-entry Build**: Webpack now builds separate bundles for each component
+
+### Technical
+- ✅ Works around Azure DevOps' built-in .md renderer limitation
+- 🧩 Modular architecture with separate context actions, hub, and modal components
+- 📈 Provides multiple user workflows for accessing Mermaid functionality
+
 ## [1.0.5] - 2024-10-11
 
 ### Added

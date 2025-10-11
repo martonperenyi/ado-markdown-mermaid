@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "ado-markdown-mermaid",
-    "version": "1.0.5",
+    "id": "ado-markdown-mermaid-enhanced",
+    "version": "1.0.7",
     "name": "ADO Markdown Mermaid",
     "description": "A Mermaid Renderer for Azure DevOps",
     "public": true,
@@ -12,7 +12,8 @@
         }
     ],
     "scopes": [
-        "vso.code"
+        "vso.code",
+        "vso.code_write"
     ],
     "categories": [
         "Azure Repos"
@@ -35,14 +36,13 @@
         {
             "id": "mermaid-renderer",
             "type": "ms.vss-code-web.content-renderer",
-            "description": "Shows a mermaid renderer for .md and .mmd files",
+            "description": "Shows a mermaid renderer for .mmd files",
             "targets": [
                 "ms.vss-code-web.content-renderer-collection"
             ],
             "properties": {
                 "uri": "dist/index.html",
                 "fileExtensions": [
-                    "md",
                     "mmd"
                 ],
                 "mimeTypes": [
@@ -50,6 +50,45 @@
                 ],
                 "defaultBehavior": "showRenderedContent",
                 "registeredObjectId": "mermaid_renderer"
+            }
+        },
+        {
+            "id": "mermaid-markdown-context-menu",
+            "type": "ms.vss-web.action",
+            "description": "Open markdown file with Mermaid renderer",
+            "targets": [
+                "ms.vss-code-web.source-item-menu"
+            ],
+            "properties": {
+                "text": "Open with Mermaid",
+                "title": "View this markdown file with Mermaid diagram support",
+                "icon": "bowtie-icon bowtie-file-preview",
+                "uri": "dist/context-action.html",
+                "registeredObjectId": "mermaid_context_action"
+            }
+        },
+        {
+            "id": "mermaid-hub",
+            "type": "ms.vss-web.hub",
+            "description": "Mermaid Markdown Viewer Hub",
+            "targets": [
+                "ms.vss-code-web.code-hub-group"
+            ],
+            "properties": {
+                "name": "Mermaid Viewer",
+                "uri": "dist/hub.html",
+                "icon": "bowtie-icon bowtie-file-preview",
+                "order": 100,
+                "registeredObjectId": "mermaid_hub"
+            }
+        },
+        {
+            "id": "mermaid-viewer-dialog",
+            "type": "ms.vss-web.content",
+            "description": "Mermaid viewer modal dialog",
+            "targets": [],
+            "properties": {
+                "uri": "dist/modal-viewer.html"
             }
         }
     ],
