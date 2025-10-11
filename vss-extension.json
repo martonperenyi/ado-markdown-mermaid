@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "ado-markdown-mermaid-enhanced",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "name": "ADO Markdown Mermaid",
     "description": "A Mermaid Renderer for Azure DevOps",
     "public": true,
@@ -65,7 +65,15 @@
                 "icon": "bowtie-icon bowtie-file-preview",
                 "uri": "dist/context-action.html",
                 "registeredObjectId": "mermaid_context_action"
-            }
+            },
+            "constraints": [
+                {
+                    "name": "FileExtension",
+                    "properties": {
+                        "supportedExtensions": ["md", "mmd"]
+                    }
+                }
+            ]
         },
         {
             "id": "mermaid-hub",
