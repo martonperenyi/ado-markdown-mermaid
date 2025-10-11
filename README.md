@@ -146,14 +146,6 @@ If you encounter any issues or have questions:
 2. **Create a new issue** with detailed information about the problem
 3. **Include sample markdown** that reproduces the issue
 
-## 🏗️ Roadmap
-
-- [ ] Enhanced Mermaid theme support
-- [ ] Custom CSS styling options
-- [ ] Export diagram functionality
-- [ ] Performance optimizations
-- [ ] Additional markdown extensions
-
 ## 👤 Author
 
 **Javier Ramos**

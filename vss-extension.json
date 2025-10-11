@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "ado-markdown-mermaid",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "ADO Markdown Mermaid",
     "description": "A Mermaid Renderer for Azure DevOps",
     "public": true,

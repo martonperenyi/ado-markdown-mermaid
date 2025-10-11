@@ -5,6 +5,18 @@ All notable changes to the ADO Markdown Mermaid extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-10-11
+
+### Fixed
+- 🐛 Extension loading issue by reverting to `commonmark` library
+- 🔧 Resolved compatibility problems that prevented Mermaid diagrams from rendering
+- ✅ Extension now loads properly in Azure DevOps markdown files
+
+### Technical Changes
+- Reverted from `marked` library back to `commonmark` for stable HTML output
+- Updated dependencies to include both `marked` and `commonmark` for future compatibility
+- Maintained all existing Mermaid diagram support and markdown features
+
 ## [1.0.0] - 2024-10-11
 
 ### Added
