@@ -21,16 +21,36 @@ SDK.register("mermaid_context_action", () => {
                     return;
                 }
 
-                // Get the current project and repository information
-                const project = context.gitRepository?.project?.name || 'DefaultProject';
-                const repoName = context.gitRepository?.name || 'DefaultRepo';
+                // Use Azure DevOps SDK navigation service
                 const filePath = item.path;
-
-                // Try direct URL navigation (most reliable)
-                const baseUrl = window.location.origin;
-                const hubUrl = `${baseUrl}/${project}/_apps/hub/javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub?filePath=${encodeURIComponent(filePath)}`;
-                console.log("Opening Mermaid hub:", hubUrl);
-                window.open(hubUrl, '_blank');
+                console.log("Attempting to navigate to Mermaid hub with file:", filePath);
+                
+                try {
+                    // Try to use the navigation service
+                    const navService = await SDK.getService("ms.vss-features.host-navigation-service");
+                    const hostPageContext = await SDK.getService("ms.vss-features.host-page-context-service");
+                    
+                    // Navigate to our hub with URL parameters
+                    const navigationContext = {
+                        filePath: filePath,
+                        source: 'context-menu'
+                    };
+                    
+                    await navService.navigate("javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub", navigationContext);
+                    
+                } catch (navError) {
+                    console.error("Navigation service failed:", navError);
+                    
+                    // Manual fallback: try to construct URL using current page context
+                    const project = context.gitRepository?.project?.name;
+                    if (project && window.parent) {
+                        const hubUrl = `/${project}/_apps/hub/javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub?filePath=${encodeURIComponent(filePath)}`;
+                        console.log("Trying fallback URL:", hubUrl);
+                        window.parent.location.href = hubUrl;
+                    } else {
+                        throw new Error("Could not determine project context for navigation");
+                    }
+                }
                 
             } catch (error) {
                 console.error("Error in Mermaid context action:", error);

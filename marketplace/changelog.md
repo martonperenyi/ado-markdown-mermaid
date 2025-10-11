@@ -5,6 +5,14 @@ All notable changes to the ADO Markdown Mermaid extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.10] - 2024-10-11
+
+### Fixed
+- 🔗 **Navigation URLs**: Fixed incorrect URL construction that was pointing to CDN instead of Azure DevOps project
+- 🛠️ **SDK Navigation**: Enhanced context action to use proper Azure DevOps navigation service with fallback
+- 🎯 **URL Generation**: Improved URL extraction from repository context for reliable navigation
+- 🔄 **Better Fallbacks**: Added multiple fallback strategies when navigation service fails
+
 ## [1.0.9] - 2024-10-11
 
 ### Fixed
