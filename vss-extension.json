@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "ado-markdown-mermaid",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "name": "ADO Markdown Mermaid",
     "description": "A Mermaid Renderer for Azure DevOps",
     "public": true,
@@ -35,7 +35,7 @@
         {
             "id": "mermaid-renderer",
             "type": "ms.vss-code-web.content-renderer",
-            "description": "Shows a mermaid renderer for .mmd files",
+            "description": "Shows a mermaid renderer for .md files",
             "targets": [
                 "ms.vss-code-web.content-renderer-collection"
             ],
@@ -44,10 +44,6 @@
                 "fileExtensions": [
                     "md"
                 ],
-                "mimeTypes": [
-                    "text/html"
-                ],
-                "defaultBehavior": "showRenderedContent",
                 "registeredObjectId": "mermaid_renderer"
             }
         }
