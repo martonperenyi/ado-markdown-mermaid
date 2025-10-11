@@ -5,6 +5,23 @@ All notable changes to the ADO Markdown Mermaid extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2024-10-11
+
+### Added
+- 📁 **Dual File Support**: Added support for both `.md` and `.mmd` file extensions
+- 🧪 Test files for both formats to verify functionality
+- 📄 Created sample `.mmd` file for testing Mermaid-specific markdown
+
+### Fixed
+- 🔧 **Critical Fix**: Restored complete working configuration from reference project
+- ⚙️ Re-added essential `mimeTypes` and `defaultBehavior` properties that were incorrectly removed
+- 🎯 Extension now matches exact working configuration from successful reference implementation
+
+### Technical Changes
+- Configuration now exactly matches proven working setup
+- Support for both standard markdown (.md) and mermaid markdown (.mmd) files
+- Maintained backward compatibility while expanding file type support
+
 ## [1.0.2] - 2024-10-11
 
 ### Fixed
