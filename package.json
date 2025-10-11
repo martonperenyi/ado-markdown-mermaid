@@ -1,12 +1,11 @@
 {
   "name": "ado-markdown-mermaid",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "private": true,
   "dependencies": {
     "azure-devops-extension-api": "^4.261.0",
     "azure-devops-extension-sdk": "^4.0.2",
-    "commonmark": "^0.31.2",
     "marked": "^16.4.0",
     "mermaid": "^10.9.0"
   },

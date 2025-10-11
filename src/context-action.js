@@ -25,31 +25,31 @@ SDK.register("mermaid_context_action", () => {
                 const filePath = item.path;
                 console.log("Attempting to navigate to Mermaid hub with file:", filePath);
                 
-                try {
-                    // Try to use the navigation service
-                    const navService = await SDK.getService("ms.vss-features.host-navigation-service");
-                    const hostPageContext = await SDK.getService("ms.vss-features.host-page-context-service");
-                    
-                    // Navigate to our hub with URL parameters
-                    const navigationContext = {
-                        filePath: filePath,
-                        source: 'context-menu'
-                    };
-                    
-                    await navService.navigate("javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub", navigationContext);
-                    
-                } catch (navError) {
-                    console.error("Navigation service failed:", navError);
-                    
-                    // Manual fallback: try to construct URL using current page context
-                    const project = context.gitRepository?.project?.name;
-                    if (project && window.parent) {
-                        const hubUrl = `/${project}/_apps/hub/javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub?filePath=${encodeURIComponent(filePath)}`;
-                        console.log("Trying fallback URL:", hubUrl);
-                        window.parent.location.href = hubUrl;
-                    } else {
-                        throw new Error("Could not determine project context for navigation");
+                // Use a simple approach: navigate to the hub using window.open with correct URL format
+                const project = context.gitRepository?.project?.name;
+                const repoUrl = context.gitRepository?.webUrl || context.gitRepository?.url || '';
+                
+                // Extract the base Azure DevOps URL from the repository URL
+                let baseUrl = '';
+                const urlMatch = repoUrl.match(/(https:\/\/dev\.azure\.com\/[^\/]+)/);
+                if (urlMatch) {
+                    baseUrl = urlMatch[1];
+                } else {
+                    // Fallback: try to construct from current location
+                    const currentUrl = window.location.href;
+                    const currentMatch = currentUrl.match(/(https:\/\/[^\/]+)/);
+                    if (currentMatch) {
+                        baseUrl = currentMatch[1];
                     }
+                }
+                
+                if (baseUrl && project) {
+                    const hubUrl = `${baseUrl}/${project}/_apps/hub/javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub?filePath=${encodeURIComponent(filePath)}`;
+                    console.log("Opening Mermaid hub at:", hubUrl);
+                    window.open(hubUrl, '_blank');
+                } else {
+                    console.error("Could not construct hub URL. Project:", project, "BaseURL:", baseUrl);
+                    alert("Could not open Mermaid viewer. Please navigate to Code > Mermaid Viewer manually and enter the file path: " + filePath);
                 }
                 
             } catch (error) {

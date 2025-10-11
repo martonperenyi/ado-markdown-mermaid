@@ -5,6 +5,18 @@ All notable changes to the ADO Markdown Mermaid extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.11] - 2024-10-11
+
+### Changed
+- 📚 **Library Migration**: Migrated back to `marked` library from `commonmark` for better performance
+- 🔗 **Navigation Fix**: Fixed context menu navigation URL construction to use proper `_apps/hub` format
+- 📦 **Bundle Size**: Reduced bundle size from ~454KB to ~343KB by removing `commonmark` dependency
+- 🎯 **URL Extraction**: Improved URL extraction from repository context for more reliable navigation
+
+### Fixed
+- 🚫 **404 Errors**: Fixed "Page not found" errors when navigating from context menu
+- 🔄 **Fallback Logic**: Enhanced fallback URL construction when primary navigation fails
+
 ## [1.0.10] - 2024-10-11
 
 ### Fixed

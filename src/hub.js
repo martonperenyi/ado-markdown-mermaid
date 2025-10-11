@@ -1,5 +1,5 @@
 import * as SDK from "azure-devops-extension-sdk";
-import { Parser, HtmlRenderer } from "commonmark";
+import { marked } from "marked";
 import Mermaid from "mermaid";
 
 class MermaidHub {
@@ -80,10 +80,7 @@ class MermaidHub {
             }
 
             // Parse markdown to HTML
-            const reader = new Parser();
-            const writer = new HtmlRenderer();
-            const parsed = reader.parse(content);
-            let resultHtml = writer.render(parsed);
+            let resultHtml = marked(content);
             
             // Create container for rendered content
             const previewContainer = document.getElementById('preview-content');

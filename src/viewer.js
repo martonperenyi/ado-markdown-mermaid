@@ -1,15 +1,12 @@
-import { Parser, HtmlRenderer } from "commonmark";
+import { marked } from "marked";
 import Mermaid from "mermaid";
 
 const mermaidViewer = (function () {
 	"use strict";
 	return {
 		renderContent: function (rawContent, options) {
-			// Converte o markdown para HTML
-			var reader = new Parser();
-			var writer = new HtmlRenderer();
-			var parsed = reader.parse(rawContent);
-			var resultHtml = writer.render(parsed);
+			// Convert markdown to HTML using marked
+			var resultHtml = marked(rawContent);
 
 			// Recupera todos os nós com gráficos mermaid
 			var container = document.getElementById('md-mermaid-viewer');

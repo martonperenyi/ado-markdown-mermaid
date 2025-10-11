@@ -1,5 +1,5 @@
 import * as SDK from "azure-devops-extension-sdk";
-import { Parser, HtmlRenderer } from "commonmark";
+import { marked } from "marked";
 import Mermaid from "mermaid";
 
 async function loadModalViewer() {
@@ -52,10 +52,7 @@ async function loadModalViewer() {
 function renderMarkdownWithMermaid(rawContent) {
     try {
         // Parse markdown to HTML
-        const reader = new Parser();
-        const writer = new HtmlRenderer();
-        const parsed = reader.parse(rawContent);
-        let resultHtml = writer.render(parsed);
+        let resultHtml = marked(rawContent);
         
         // Create container for rendered content
         const container = document.getElementById('viewer-container');
