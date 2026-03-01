@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mermaid Viewer</title>
+    <style>
+      body {
+        font-family: "Segoe UI VSS (Regular)","Segoe UI","-apple-system",BlinkMacSystemFont,Roboto,"Helvetica Neue",Helvetica,Ubuntu,Arial,sans-serif;
+        color: rgba(0,0,0,1);
+        font-size: 14px;
+        line-height: 1.6;
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+      .hub-container { padding: 20px; max-width: 1400px; }
+      .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+      .toolbar input[type="text"] { flex: 1; min-width: 300px; padding: 6px 10px; border: 1px solid #c8c8c8; border-radius: 2px; font-size: 13px; }
+      .toolbar button { padding: 6px 14px; border: 1px solid #c8c8c8; border-radius: 2px; background: #f0f0f0; cursor: pointer; font-size: 13px; }
+      .toolbar button:hover { background: #e0e0e0; }
+      .toolbar button.primary { background: #0078d4; color: #fff; border-color: #0078d4; }
+      .toolbar button.primary:hover { background: #106ebe; }
+      .panels { display: flex; gap: 16px; }
+      .input-panel { flex: 1; min-width: 0; }
+      .preview-panel { flex: 1; min-width: 0; }
+      textarea { width: 100%; height: 500px; padding: 10px; border: 1px solid #c8c8c8; border-radius: 2px; font-family: 'Courier New', monospace; font-size: 13px; resize: vertical; box-sizing: border-box; }
+      #preview-content {
+        border: 1px solid #c8c8c8; border-radius: 2px; padding: 20px; min-height: 500px; overflow: auto; box-sizing: border-box;
+      }
+      #preview-content table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+      #preview-content th, #preview-content td { border: 1px solid #d0d7de; padding: 8px 13px; text-align: left; }
+      #preview-content th { background: #f6f8fa; font-weight: 600; }
+      #preview-content pre { background: #f6f8fa; border-radius: 6px; padding: 16px; overflow: auto; }
+      #preview-content code { background: #f6f8fa; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 85%; }
+      #preview-content pre code { background: transparent; padding: 0; }
+      #preview-content blockquote { border-left: 4px solid #d0d7de; padding-left: 16px; margin-left: 0; color: #57606a; }
+      #preview-content h1, #preview-content h2 { border-bottom: 1px solid #d0d7de; padding-bottom: 8px; }
+      #message-area .success { color: #107c10; padding: 4px 0; }
+      #message-area .error { color: #a80000; padding: 4px 0; }
+      #message-area .info { color: #0078d4; padding: 4px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="hub-container">
+      <div class="toolbar">
+        <input type="text" id="file-path" placeholder="Enter file path, e.g. /docs/architecture.md" />
+        <button id="load-file-btn" class="primary">Load File</button>
+        <button id="render-btn">Render Preview</button>
+        <button id="load-sample-btn">Load Sample</button>
+        <button id="clear-btn">Clear</button>
+      </div>
+      <div id="message-area"></div>
+      <div class="panels">
+        <div class="input-panel">
+          <textarea id="markdown-input" placeholder="Paste markdown with mermaid code blocks here..."></textarea>
+        </div>
+        <div class="preview-panel">
+          <div id="preview-content">
+            <p style="color: #666; text-align: center; padding: 50px;">
+              Enter a file path and click "Load File", or paste markdown content and click "Render Preview".
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

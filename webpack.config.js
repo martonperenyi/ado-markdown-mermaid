@@ -17,6 +17,21 @@ module.exports = {
 			template: 'index.html',
 			filename: 'index.html',
 			chunks: ['index']
+		}),
+		new HtmlWebpackPlugin({
+			template: 'index.html',
+			filename: 'context-action.html',
+			chunks: ['context-action']
+		}),
+		new HtmlWebpackPlugin({
+			template: 'hub.html',
+			filename: 'hub.html',
+			chunks: ['hub']
+		}),
+		new HtmlWebpackPlugin({
+			template: 'index.html',
+			filename: 'modal-viewer.html',
+			chunks: ['modal-viewer']
 		})
 	],
 	module: {
