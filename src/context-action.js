@@ -7,10 +7,8 @@ SDK.register("mermaid_context_action", () => {
             try {
                 console.log("Context action called with:", JSON.stringify(context, null, 2));
 
-                // Check if this is a markdown file
                 const item = context.item || context;
                 if (!item || !item.path) {
-                    console.error("No item path found in context");
                     alert("Mermaid viewer: no file path found in context.");
                     return;
                 }
@@ -24,36 +22,41 @@ SDK.register("mermaid_context_action", () => {
                     return;
                 }
 
-                console.log("Attempting to navigate to Mermaid hub with file:", filePath);
-
                 const project = context.gitRepository?.project?.name;
-
-                // Use the SDK navigation service to get the host URL correctly
-                // This works in both cloud and on-prem TFS (handles iframes properly)
-                const navService = await SDK.getService("ms.vss-features.host-navigation-service");
-
-                if (navService && project) {
-                    // Navigate within TFS to the hub page
-                    const hubId = "javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub";
-                    const params = { filePath: filePath };
-                    await navService.navigate(
-                        `${project}/_apps/hub/${hubId}?filePath=${encodeURIComponent(filePath)}`
-                    );
-                } else {
-                    // Fallback: use parent window location
-                    const parentUrl = window.top.location.href;
-                    // Extract base up to project: https://tfs.example.com/Collection
-                    const projIndex = parentUrl.indexOf('/' + project + '/');
-                    const baseUrl = projIndex > 0 ? parentUrl.substring(0, projIndex) : '';
-
-                    if (baseUrl && project) {
-                        const hubUrl = `${baseUrl}/${project}/_apps/hub/javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub?filePath=${encodeURIComponent(filePath)}`;
-                        console.log("Navigating to:", hubUrl);
-                        window.top.location.href = hubUrl;
-                    } else {
-                        alert("Could not determine TFS URL. Go to Code > Mermaid Viewer and enter: " + filePath);
-                    }
+                if (!project) {
+                    alert("Mermaid viewer: could not determine project name.\nGo to Code > Mermaid Viewer and enter: " + filePath);
+                    return;
                 }
+
+                // Build absolute hub URL from the parent frame's location
+                // Parent URL is like: https://tfs.example.com/DefaultCollection/Project/_git/Repo/...
+                // We need:            https://tfs.example.com/DefaultCollection/Project/_apps/hub/...
+                const parentUrl = window.top.location.href;
+                const projIndex = parentUrl.indexOf('/' + project + '/');
+                if (projIndex < 0) {
+                    alert("Mermaid viewer: could not parse TFS URL.\nGo to Code > Mermaid Viewer and enter: " + filePath);
+                    return;
+                }
+
+                const baseUrl = parentUrl.substring(0, projIndex);
+                const hubId = "javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub";
+                const hubUrl = `${baseUrl}/${project}/_apps/hub/${hubId}?filePath=${encodeURIComponent(filePath)}`;
+
+                console.log("Navigating to:", hubUrl);
+
+                // Use navigation service with absolute URL
+                try {
+                    const navService = await SDK.getService("ms.vss-features.host-navigation-service");
+                    if (navService) {
+                        await navService.navigate(hubUrl);
+                        return;
+                    }
+                } catch (e) {
+                    console.warn("Navigation service unavailable, falling back:", e);
+                }
+
+                // Fallback: direct navigation on parent frame
+                window.top.location.href = hubUrl;
 
             } catch (error) {
                 console.error("Error in Mermaid context action:", error);
