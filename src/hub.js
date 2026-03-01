@@ -31,12 +31,21 @@ class MermaidHub {
     }
 
     checkUrlParameters() {
-        // Check if a file path was passed as a URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const filePath = urlParams.get('filePath');
-        
+        // Check URL parameters — passed from context action or direct navigation
+        // The hub runs in an iframe; parameters may be on the iframe URL or the parent URL
+        const iframeParams = new URLSearchParams(window.location.search);
+        const parentParams = new URLSearchParams(window.top.location.search);
+
+        const filePath = iframeParams.get('filePath') || parentParams.get('filePath');
+        const repoName = iframeParams.get('repo') || parentParams.get('repo');
+
         if (filePath) {
             document.getElementById('file-path').value = filePath;
+        }
+        if (repoName) {
+            document.getElementById('repo-name').value = repoName;
+        }
+        if (filePath) {
             setTimeout(() => this.loadFileFromRepository(), 1000);
         }
     }
@@ -215,35 +224,39 @@ function renderMermaid(content) {
 
     async loadFileFromRepository() {
         const filePath = document.getElementById('file-path').value.trim();
-        
+        const repoName = document.getElementById('repo-name').value.trim();
+
         if (!filePath) {
             this.showMessage('Please enter a file path', 'error');
+            return;
+        }
+        if (!repoName) {
+            this.showMessage('Please enter a repository name', 'error');
             return;
         }
 
         try {
             this.showMessage('Loading file...', 'info');
-            
-            // Try to get the REST client
+
+            // Get project context
             const projectService = await SDK.getService("ms.vss-tfs-web.tfs-page-data-service");
             const project = await projectService.getProject();
-            
+
             if (!project) {
                 throw new Error('Could not determine current project');
             }
 
-            // Build base URL: use SDK host to support both cloud and on-prem TFS
-            const hostContext = SDK.getHost();
-            // On-prem TFS: window.location may include collection path (e.g. /DefaultCollection)
-            // Extract base from current URL up to project name
-            const currentUrl = window.location.href;
-            const projIndex = currentUrl.indexOf('/' + project.name + '/');
-            const baseUrl = projIndex > 0 ? currentUrl.substring(0, projIndex) : window.location.origin;
+            // Build base URL from parent frame (handles on-prem TFS with collection path)
+            const parentUrl = window.top.location.href;
+            const projIndex = parentUrl.indexOf('/' + project.name + '/');
+            const baseUrl = projIndex > 0 ? parentUrl.substring(0, projIndex) : window.top.location.origin;
 
-            // Use the REST API to get file content
-            const response = await fetch(`${baseUrl}/${project.name}/_api/_versioncontrol/itemcontent?path=${encodeURIComponent(filePath)}&api-version=6.0`, {
+            // Use Git Items API: GET {collection}/{project}/_apis/git/repositories/{repo}/items?path=...
+            const apiUrl = `${baseUrl}/${project.name}/_apis/git/repositories/${encodeURIComponent(repoName)}/items?path=${encodeURIComponent(filePath)}&api-version=5.0&includeContent=true&$format=text`;
+
+            const response = await fetch(apiUrl, {
                 headers: {
-                    'Accept': 'application/json',
+                    'Accept': 'text/plain',
                 }
             });
 
@@ -254,7 +267,7 @@ function renderMermaid(content) {
             const content = await response.text();
             document.getElementById('markdown-input').value = content;
             this.renderMarkdown();
-            this.showMessage(`File loaded successfully: ${filePath}`, 'success');
+            this.showMessage(`File loaded: ${repoName}:${filePath}`, 'success');
             
         } catch (error) {
             console.error('Error loading file:', error);

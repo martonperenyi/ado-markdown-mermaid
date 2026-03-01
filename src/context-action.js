@@ -23,6 +23,7 @@ SDK.register("mermaid_context_action", () => {
                 }
 
                 const project = context.gitRepository?.project?.name;
+                const repoName = context.gitRepository?.name;
                 if (!project) {
                     alert("Mermaid viewer: could not determine project name.\nGo to Code > Mermaid Viewer and enter: " + filePath);
                     return;
@@ -40,7 +41,10 @@ SDK.register("mermaid_context_action", () => {
 
                 const baseUrl = parentUrl.substring(0, projIndex);
                 const hubId = "javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub";
-                const hubUrl = `${baseUrl}/${project}/_apps/hub/${hubId}?filePath=${encodeURIComponent(filePath)}`;
+                let hubUrl = `${baseUrl}/${project}/_apps/hub/${hubId}?filePath=${encodeURIComponent(filePath)}`;
+                if (repoName) {
+                    hubUrl += `&repo=${encodeURIComponent(repoName)}`;
+                }
 
                 console.log("Navigating to:", hubUrl);
 
