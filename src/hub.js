@@ -232,8 +232,16 @@ function renderMermaid(content) {
                 throw new Error('Could not determine current project');
             }
 
+            // Build base URL: use SDK host to support both cloud and on-prem TFS
+            const hostContext = SDK.getHost();
+            // On-prem TFS: window.location may include collection path (e.g. /DefaultCollection)
+            // Extract base from current URL up to project name
+            const currentUrl = window.location.href;
+            const projIndex = currentUrl.indexOf('/' + project.name + '/');
+            const baseUrl = projIndex > 0 ? currentUrl.substring(0, projIndex) : window.location.origin;
+
             // Use the REST API to get file content
-            const response = await fetch(`${window.location.origin}/${project.name}/_api/_versioncontrol/itemcontent?path=${encodeURIComponent(filePath)}&api-version=6.0`, {
+            const response = await fetch(`${baseUrl}/${project.name}/_api/_versioncontrol/itemcontent?path=${encodeURIComponent(filePath)}&api-version=6.0`, {
                 headers: {
                     'Accept': 'application/json',
                 }

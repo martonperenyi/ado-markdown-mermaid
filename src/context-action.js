@@ -29,20 +29,20 @@ SDK.register("mermaid_context_action", () => {
                 const project = context.gitRepository?.project?.name;
                 const repoUrl = context.gitRepository?.webUrl || context.gitRepository?.url || '';
                 
-                // Extract the base Azure DevOps URL from the repository URL
+                // Extract the base Azure DevOps / TFS URL from the current page
+                // Works for both dev.azure.com and on-prem TFS (e.g. https://tfs.example.com/Collection)
                 let baseUrl = '';
-                const urlMatch = repoUrl.match(/(https:\/\/dev\.azure\.com\/[^\/]+)/);
-                if (urlMatch) {
-                    baseUrl = urlMatch[1];
-                } else {
-                    // Fallback: try to construct from current location
-                    const currentUrl = window.location.href;
-                    const currentMatch = currentUrl.match(/(https:\/\/[^\/]+)/);
-                    if (currentMatch) {
-                        baseUrl = currentMatch[1];
-                    }
+                const currentUrl = window.location.href;
+                // Match Azure DevOps Services: https://dev.azure.com/org/project/...
+                const cloudMatch = currentUrl.match(/(https:\/\/dev\.azure\.com\/[^\/]+)/);
+                // Match on-prem TFS/Azure DevOps Server: https://host/Collection/project/...
+                const onPremMatch = currentUrl.match(/(https?:\/\/[^\/]+\/[^\/]+)/);
+                if (cloudMatch) {
+                    baseUrl = cloudMatch[1];
+                } else if (onPremMatch) {
+                    baseUrl = onPremMatch[1];
                 }
-                
+
                 if (baseUrl && project) {
                     const hubUrl = `${baseUrl}/${project}/_apps/hub/javiramos1.ado-markdown-mermaid-enhanced.mermaid-hub?filePath=${encodeURIComponent(filePath)}`;
                     console.log("Opening Mermaid hub at:", hubUrl);
